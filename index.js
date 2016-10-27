@@ -3,31 +3,43 @@ var fs = require('fs')
 var path = require('path')
 var dom = require('cheerio')
 var args = process.argv.slice(2)
-var wrap = dom.load('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0" height="0" style="display:none;"></svg>')
+var $ = dom.load('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0" height="0" style="display:none;"></svg>')
+var dir
+var file
+var fileName
+var svgNode
+var symbolNode
 if (args && args.length) {
-  var dir = args[0]
+  dir = args[0]
   fs.readdir(dir, function(err, files) {
     if (err) {
-      console.error(err)
+      process.stderr(err)
       return
     }
     files.forEach(function(file) {
       if (path.extname(file) === '.svg') {
-        var fileName = file.slice(0, -4)
-        var file = fs.readFileSync(path.join(dir, file), 'utf8')
-        var $ = dom.load(file)
-        var viewbox = $('svg').attr('viewbox')
-        var symbol = dom.load('<symbol></symbol>')
-        var symbolNode = symbol('symbol')
-        symbolNode.attr('viewbox', viewbox)
+        fileName = file.slice(0, -4)
+        file = fs.readFileSync(path.join(dir, file), 'utf8')
+        svgNode = $(file)
+        symbolNode = $('<symbol></symbol>')
+        symbolNode.attr('viewbox', svgNode.attr('viewbox'))
         symbolNode.attr('id', fileName)
-        symbolNode.append($('svg').contents())
-        wrap('svg').append(symbolNode)
+        symbolNode.append(svgNode.contents())
+        symbolNode
+          .children()
+          .each(
+            function(i, kid) {
+              $(kid)
+                .removeAttr('fill')
+                .removeAttr('stroke')
+            }
+          )
+        $('svg').append(symbolNode)
       }
     })
-    process.stdout.write(wrap.html())
+    process.stdout.write($.html())
   })
 }
 else {
-  console.log('Directory not found.')
+  process.stderr('Directory not found.')
 }
