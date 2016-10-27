@@ -1,6 +1,6 @@
 {
   "name": "svg-symbols",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "svg symbols generator",
   "main": "index.js",
   "bin": {
