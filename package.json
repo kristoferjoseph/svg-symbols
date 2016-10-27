@@ -1,0 +1,37 @@
+{
+  "name": "svg-symbols",
+  "version": "1.0.0",
+  "description": "svg symbols generator",
+  "main": "index.js",
+  "bin": {
+    "svg-symbols": "./index.js"
+  },
+  "scripts": {
+    "test": "tape ./test.js | tap-spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kristoferjoseph/svg-symbols.git"
+  },
+  "keywords": [
+    "svg",
+    "symbol",
+    "icon",
+    "generator",
+    "cli"
+  ],
+  "author": "@dam",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/kristoferjoseph/svg-symbols/issues"
+  },
+  "homepage": "https://github.com/kristoferjoseph/svg-symbols#readme",
+  "devDependencies": {
+    "nixt": "^0.5.0",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.2"
+  },
+  "dependencies": {
+    "cheerio": "^0.22.0"
+  }
+}
