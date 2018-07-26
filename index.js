@@ -24,6 +24,7 @@ function parse (file) {
         $(kid)
           .removeAttr('fill')
           .removeAttr('stroke')
+          .removeAttr('style')
       })
     $('svg').append(symbolNode)
   }
