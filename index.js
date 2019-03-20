@@ -15,7 +15,7 @@ function parse (file) {
     file = fs.readFileSync(path.join(dir, file), 'utf8')
     svgNode = $(file)
     symbolNode = $('<symbol></symbol>')
-    symbolNode.attr('viewBox', svgNode.attr('viewBox'))
+    symbolNode.attr('viewBox', svgNode[svgNode.length - 1].attribs.viewbox)
     symbolNode.attr('id', fileName)
     symbolNode.append(svgNode.contents())
     symbolNode
