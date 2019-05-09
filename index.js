@@ -34,12 +34,12 @@ if (args && args.length) {
   dir = args[0]
   fs.readdir(dir, function (err, files) {
     if (err) {
-      process.stderr(err)
+      process.stderr.write(err)
       return
     }
     files.forEach(parse)
     process.stdout.write($.html())
   })
 } else {
-  process.stderr('Directory not found.')
+  process.stderr.write('Directory not found.')
 }
